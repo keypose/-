@@ -6,17 +6,11 @@
     <title>KPOSE AI</title>
     <!-- 样式库：换回最稳定的官方 CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 图标库 -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <!-- 交互库 -->
     <script defer src="https://cdn.staticfile.net/alpinejs/3.13.3/cdn.min.js"></script>
     <script>
-        // 预定义 SVG 图标代码，确保 100% 瞬间渲染
-        const iconMocap = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-blue-400"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`;
-        const iconPolish = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-blue-400"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`;
-        const iconRetarget = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-blue-400"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>`;
-        const iconSim = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-blue-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>`;
-        const iconCustom = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-cyan-400"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>`;
-        const iconStandard = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-cyan-400"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg>`;
-
         document.addEventListener('alpine:init', () => {
             Alpine.data('website', () => ({
                 lang: 'cn',
@@ -30,26 +24,27 @@
                         heroTitle2: "物理动作数据供应商",
                         heroSub: "完美解决 Sim-to-Real 痛点，为人形机器人提供 RL-ready 的标准动作资产库与专家级精修服务。",
                         cta: "获取免费测试数据",
+                        videoPlaceholder: "16:9 宣传视频占位符",
+                        imgPlaceholder: "图片占位符",
                         workflowTitle: "核心技术工作流 (SOP)",
                         steps: [
-                            // 修复：图片路径统一加上 ./ 确保 Vercel 能找到
-                            { img: "./workflow-1.jpg", icon: iconMocap, title: "1. 自主动捕 (Mocap)", desc: "穿戴专业动捕设备，录制真实人类动作，拥有100%底层数据完整知识产权，从源头把控质量。" },
-                            { img: "./workflow-2.jpg", icon: iconPolish, title: "2. 专家级精修", desc: "资深动画师操刀，彻底消除脚部滑步 (Foot Sliding)、肢体穿模、重心偏移等动捕通病。" },
-                            { img: "./workflow-3.jpg", icon: iconRetarget, title: "3. 算法重定向 (GMR)", desc: "通过 GMR 系统将精修动作完美映射到宇树、智元等机器人模型，生成强化学习 (RL) 友好数据矩阵。" },
-                            { img: "./workflow-4.jpg", icon: iconSim, title: "4. 物理验证 (Sim Validation)", desc: "导入 MuJoCo / Isaac Sim 进行重力、摩擦力测试，确保机器人动作平滑，不摔倒、不抽搐。" }
+                            { img: "./workflow-1.jpg", icon: "activity", title: "1. 自主动捕 (Mocap)", desc: "穿戴专业动捕设备，录制真实人类动作，拥有100%底层数据完整知识产权，从源头把控质量。" },
+                            { img: "./workflow-2.jpg", icon: "wrench", title: "2. 专家级精修", desc: "资深动画师操刀，彻底消除脚部滑步 (Foot Sliding)、肢体穿模、重心偏移等动捕通病。" },
+                            { img: "./workflow-3.jpg", icon: "cpu", title: "3. 算法重定向 (GMR)", desc: "通过 GMR 系统将精修动作完美映射到宇树、智元等机器人模型，生成强化学习 (RL) 友好数据矩阵。" },
+                            { img: "./workflow-4.jpg", icon: "shield-check", title: "4. 物理验证 (Sim Validation)", desc: "导入 MuJoCo / Isaac Sim 进行重力、摩擦力测试，确保机器人动作平滑，不摔倒、不抽搐。" }
                         ],
                         servicesTitle: "商业变现与服务模式",
                         services: [
                             { 
                                 img: "./service-1.jpg",
-                                icon: iconCustom, 
+                                icon: "wrench", 
                                 title: "高端定制服务", 
                                 desc: "客户提供粗糙数据与机器人模型 (URDF/XML)，我们提供从清洗、重定向到物理验证的全链路精修服务。交付包含关节角度/速度的 .npy 矩阵及仿真预览。",
                                 btnText: "获取定制报价"
                             },
                             { 
                                 img: "./service-2.jpg",
-                                icon: iconStandard, 
+                                icon: "database", 
                                 title: "标准化动作资产包", 
                                 desc: "自研并出售“工业装配”、“家政服务”、“物流搬运”等标准动作库。即买即用，一次构建，无限授权，大幅加速机器人研发周期。",
                                 btnText: "索取动作库目录"
@@ -79,25 +74,27 @@
                         heroTitle2: " Physical Motion Data for Embodied AI",
                         heroSub: "Solving Sim-to-Real pain points. Providing RL-ready standard motion assets and expert-level polishing for humanoid robots.",
                         cta: "Request Free Sample Data",
+                        videoPlaceholder: "16:9 Promo Video",
+                        imgPlaceholder: "Image Placeholder",
                         workflowTitle: "Core Technical Workflow (SOP)",
                         steps: [
-                            { img: "./workflow-1.jpg", icon: iconMocap, title: "1. In-house Mocap", desc: "Recording real human motions with professional mocap suits, owning 100% IP of the base data to ensure quality from the source." },
-                            { img: "./workflow-2.jpg", icon: iconPolish, title: "2. Expert Polish", desc: "Veteran animators eliminate foot sliding, self-penetration, and Center of Mass (COM) issues." },
-                            { img: "./workflow-3.jpg", icon: iconRetarget, title: "3. GMR Retargeting", desc: "Mapping polished motions to robot models (Unitree, Agility, etc.) via GMR, generating Reinforcement Learning (RL) friendly matrices." },
-                            { img: "./workflow-4.jpg", icon: iconSim, title: "4. Sim Validation", desc: "Testing in MuJoCo / Isaac Sim for gravity and friction to ensure stable, jitter-free robot control without falling." }
+                            { img: "./workflow-1.jpg", icon: "activity", title: "1. In-house Mocap", desc: "Recording real human motions with professional mocap suits, owning 100% IP of the base data to ensure quality from the source." },
+                            { img: "./workflow-2.jpg", icon: "wrench", title: "2. Expert Polish", desc: "Veteran animators eliminate foot sliding, self-penetration, and Center of Mass (COM) issues." },
+                            { img: "./workflow-3.jpg", icon: "cpu", title: "3. GMR Retargeting", desc: "Mapping polished motions to robot models (Unitree, Agility, etc.) via GMR, generating Reinforcement Learning (RL) friendly matrices." },
+                            { img: "./workflow-4.jpg", icon: "shield-check", title: "4. Sim Validation", desc: "Testing in MuJoCo / Isaac Sim for gravity and friction to ensure stable, jitter-free robot control without falling." }
                         ],
                         servicesTitle: "Business Models & Services",
                         services: [
                             { 
                                 img: "./service-1.jpg",
-                                icon: iconCustom, 
+                                icon: "wrench", 
                                 title: "Premium Custom Services", 
                                 desc: "You provide raw data and robot models (URDF/XML), we handle the end-to-end pipeline from cleaning to physics validation. Delivering .npy matrices and sim previews.",
                                 btnText: "Get a Custom Quote"
                             },
                             { 
                                 img: "./service-2.jpg",
-                                icon: iconStandard, 
+                                icon: "database", 
                                 title: "Standard Motion Packs", 
                                 desc: "Proprietary motion libraries for industrial assembly, domestic service, and logistics. Ready-to-use, build once, license infinitely.",
                                 btnText: "Request Asset Catalog"
@@ -128,6 +125,13 @@
                     const browserLang = navigator.language || navigator.userLanguage || '';
                     if (browserLang.toLowerCase().includes('zh')) { this.lang = 'cn'; } 
                     else { this.lang = 'en'; }
+                    
+                    // 初始化 Lucide 图标
+                    setTimeout(() => {
+                        if (window.lucide) {
+                            window.lucide.createIcons();
+                        }
+                    }, 100);
                 },
                 scrollToContact() {
                     const contactSection = document.getElementById('section-3');
@@ -146,9 +150,8 @@
                 
                 <!-- Logo 区域 -->
                 <div class="flex items-center gap-2">
-                    <!-- 修复：加上 ./ 路径 -->
                     <img src="./logo.png" alt="Logo" class="h-8 w-auto object-contain" onerror="this.style.display='none'; document.getElementById('default-logo').style.display='block';">
-                    <svg id="default-logo" style="display: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-blue-500"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                    <i id="default-logo" data-lucide="box" class="h-8 w-8 text-blue-500" style="display: none;"></i>
                     <span class="font-bold text-xl tracking-tight" x-text="t.navTitle">KPOSE AI</span>
                 </div>
                 
@@ -161,7 +164,7 @@
 
                 <!-- 语言切换按钮 -->
                 <button @click="toggleLang" class="flex items-center gap-1 text-sm font-medium bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-full transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <i data-lucide="globe" class="w-4 h-4"></i>
                     <span x-text="lang === 'cn' ? 'EN' : '中'"></span>
                 </button>
             </div>
@@ -169,12 +172,12 @@
     </nav>
 
     <!-- Hero Section (首屏) -->
-    <section id="section-0" class="relative pt-32 pb-20 overflow-hidden">
-        <!-- 背景视频：修复路径，加上 ./ -->
+    <section id="section-0" class="relative pt-20 pb-20 overflow-hidden">
+        <!-- 背景视频 -->
         <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-20">
             <source src="./bg-video.mp4" type="video/mp4">
         </video>
-        <div class="relative max-w-4xl mx-auto px-4 text-center z-10">
+        <div class="relative max-w-5xl mx-auto px-4 text-center z-10">
             <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
                 <span x-text="t.heroTitle1"></span>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300" x-text="t.heroTitleHighlight"></span>
@@ -182,10 +185,20 @@
                 <span x-text="t.heroTitle2"></span>
             </h1>
             <p class="text-lg md:text-xl text-slate-400 mb-10 max-w-2xl mx-auto" x-text="t.heroSub"></p>
-            <button @click="scrollToContact" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full transition-all flex items-center gap-2 mx-auto">
+            
+            <button @click="scrollToContact" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-8 rounded-full transition-all flex items-center gap-2 mx-auto mb-16">
                 <span x-text="t.cta"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                <i data-lucide="arrow-right" class="w-5 h-5"></i>
             </button>
+
+            <!-- 宣传视频窗口 (Promo Video) -->
+            <div class="relative w-full max-w-4xl mx-auto aspect-video bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl">
+                <!-- 视频播放器 -->
+                <video controls class="w-full h-full object-cover">
+                    <source src="./promo-video.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+            </div>
         </div>
     </section>
 
@@ -195,10 +208,22 @@
             <h2 class="text-3xl font-bold text-center mb-16" x-text="t.workflowTitle"></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <template x-for="(step, index) in t.steps" :key="index">
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/50 transition-colors">
-                        <div class="w-12 h-12 bg-blue-900/30 rounded-lg flex items-center justify-center mb-6" x-html="step.icon"></div>
-                        <h3 class="text-xl font-semibold mb-3" x-text="step.title"></h3>
-                        <p class="text-slate-400 text-sm leading-relaxed" x-text="step.desc"></p>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-blue-500/50 transition-colors flex flex-col">
+                        <!-- 工作流图片 -->
+                        <div class="w-full aspect-video bg-slate-800 relative">
+                            <img :src="step.img" alt="Workflow" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="absolute inset-0 flex items-center justify-center text-slate-600" style="display: none;">
+                                <span x-text="t.imgPlaceholder"></span>
+                            </div>
+                        </div>
+                        <!-- 工作流文字内容 -->
+                        <div class="p-6 flex-1">
+                            <div class="w-10 h-10 bg-blue-900/30 rounded-lg flex items-center justify-center mb-4 text-blue-400">
+                                <i :data-lucide="step.icon" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3" x-text="step.title"></h3>
+                            <p class="text-slate-400 text-sm leading-relaxed" x-text="step.desc"></p>
+                        </div>
                     </div>
                 </template>
             </div>
@@ -211,14 +236,26 @@
             <h2 class="text-3xl font-bold text-center mb-16" x-text="t.servicesTitle"></h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <template x-for="(service, index) in t.services" :key="index">
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 hover:border-cyan-500/50 transition-colors">
-                        <div class="w-16 h-16 bg-cyan-900/30 rounded-xl flex items-center justify-center mb-6" x-html="service.icon"></div>
-                        <h3 class="text-2xl font-bold mb-4" x-text="service.title"></h3>
-                        <p class="text-slate-400 mb-8 leading-relaxed" x-text="service.desc"></p>
-                        <a href="#section-3" class="text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1">
-                            <span x-text="service.btnText"></span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" /></svg>
-                        </a>
+                    <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-cyan-500/50 transition-colors flex flex-col md:flex-row">
+                        <!-- 服务模式图片 -->
+                        <div class="md:w-2/5 aspect-square md:aspect-auto bg-slate-800 relative">
+                            <img :src="service.img" alt="Service" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="absolute inset-0 flex items-center justify-center text-slate-600" style="display: none;">
+                                <span x-text="t.imgPlaceholder"></span>
+                            </div>
+                        </div>
+                        <!-- 服务模式文字内容 -->
+                        <div class="p-8 md:w-3/5 flex flex-col justify-center">
+                            <div class="w-12 h-12 bg-cyan-900/30 rounded-xl flex items-center justify-center mb-4 text-cyan-400">
+                                <i :data-lucide="service.icon" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4" x-text="service.title"></h3>
+                            <p class="text-slate-400 mb-6 leading-relaxed text-sm" x-text="service.desc"></p>
+                            <a href="#section-3" class="text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1 mt-auto">
+                                <span x-text="service.btnText"></span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </a>
+                        </div>
                     </div>
                 </template>
             </div>
@@ -235,8 +272,8 @@
             <div class="md:w-2/3 space-y-6">
                 <template x-for="(item, index) in t.whyUs" :key="index">
                     <div class="flex gap-4">
-                        <div class="flex-shrink-0 mt-1">
-                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div class="flex-shrink-0 mt-1 text-blue-500">
+                            <i data-lucide="check-circle" class="w-6 h-6"></i>
                         </div>
                         <p class="text-slate-300 leading-relaxed" x-text="item"></p>
                     </div>
@@ -273,7 +310,7 @@
                         <textarea rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"></textarea>
                     </div>
                     <p class="text-xs text-slate-500 flex items-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
+                        <i data-lucide="paperclip" class="w-4 h-4"></i>
                         <span x-text="t.attachmentNote"></span>
                     </p>
                     <button type="button" class="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold py-4 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]" x-text="t.formSubmit"></button>
@@ -287,5 +324,19 @@
         <p x-text="t.footer"></p>
     </footer>
 
+    <!-- 重新渲染 Lucide 图标的 Alpine 监听器 -->
+    <script>
+        document.addEventListener('alpine:initialized', () => {
+            Alpine.effect(() => {
+                // 当语言切换导致 DOM 更新时，重新渲染图标
+                const lang = Alpine.store('website')?.lang;
+                setTimeout(() => {
+                    if (window.lucide) {
+                        window.lucide.createIcons();
+                    }
+                }, 50);
+            });
+        });
+    </script>
 </body>
 </html>
